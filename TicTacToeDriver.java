@@ -1,6 +1,6 @@
 public class TicTacToeDriver{
    private static TicTacToe gameBoard;
-   
+   private static boolean turnX;
    //setup the game according to the user's instructions
    public static void setupGame(){
       System.out.println("How many rows would you like on the game board?");
@@ -9,6 +9,7 @@ public class TicTacToeDriver{
       int numCols = StdIn.readInt();
       //setup the game board
       gameBoard = new TicTacToe(numRows, numCols);
+      turnX = true;
    }
    //check whether board has 3 Os in a row in column col
    /*public boolean threeVerticalOs(int col){
@@ -63,6 +64,7 @@ public class TicTacToeDriver{
    //run all the steps for the X player's turn
    public static void xTurn(){
       //ask the player where they would like to move
+      turnX = true;
       System.out.println("--------------X Player---------------");
       gameBoard.print(); //print the board
       System.out.println("Which row would you like to place on?");
@@ -81,7 +83,7 @@ public class TicTacToeDriver{
    
    //run all the steps for the O player's turn
    public static void oTurn(){
-      
+      turnX = false;
       //ask the player where they would like to move
       System.out.println("--------------O Player---------------");
       gameBoard.print(); //print the board
@@ -112,7 +114,11 @@ public class TicTacToeDriver{
       System.out.print("(y/n)");
       String reply = StdIn.readString();
       if(reply.equals("y")){
-         System.out.println("Good job winning!");
+         if (turnX){
+            System.out.println("Good job winning!, X!");}
+         else{
+            System.out.println("Good job winning!, O!");
+         }
          return true;
          
       }
