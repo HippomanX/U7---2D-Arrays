@@ -169,7 +169,12 @@ public class GameOfLife{
       [0] [0] [0]
       [0] [0] [0]
       */
-      board[row][col] = 1 % (board[row][col]);
+      if (this.board[row][col] == 1){
+         this.board[row][col] = 0;
+      }
+      else{
+         this.board[row][col] = 1;
+      }
    }
    public int countLivingAbove(int row, int col){
       int counter = 0;
@@ -235,12 +240,12 @@ public class GameOfLife{
          if (this.board[row-1][col] == 1) counter++;
       }
       else if (row == 0){
-         this.countLivingAbove(row, col);
+         counter += this.countLivingAbove(row, col);
          if (this.board[row][col-1] == 1) counter++;
          if (this.board[row][col+1] == 1) counter++;
       }
       else if (row == this.numRows()-1){
-         this.countLivingBelow(row, col);
+         counter += this.countLivingBelow(row, col);
          if (this.board[row][col-1] == 1) counter++;
          if (this.board[row][col+1] == 1) counter++;
       }
@@ -259,8 +264,8 @@ public class GameOfLife{
          if (this.board[row-1][col] == 1) counter++;
       }
       else{
-         this.countLivingBelow(row, col);
-         this.countLivingAbove(row, col);
+         counter += this.countLivingBelow(row, col);
+         counter += this.countLivingAbove(row, col);
          if (this.board[row][col-1] == 1) counter++;
          if (this.board[row][col+1] == 1) counter++;
       }
@@ -367,6 +372,8 @@ public class GameOfLife{
       gol.print();
          StdOut.println(" ");
       gol.updateBoard();
+      //int test = this.numLivingNeighbors(1, 1);
+         StdOut.println();
       gol.print();
          StdOut.println(" ");
       gol = new GameOfLife(3, 3);
